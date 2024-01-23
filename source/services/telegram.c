@@ -5,7 +5,7 @@ void setTelegramUrl(char *url) {
 }
 
 void setSessionMessage(Session session, char *message) {
-    char *format = "New Session | %s@%s | %s";
+    char *format = "New Session | User: **%s** IP: **%s** Date: **%s**";
 
     char date[20];
     Date_formatStr(session.date, date);
