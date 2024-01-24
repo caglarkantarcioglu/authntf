@@ -1,0 +1,12 @@
+[Unit]
+Description=Auth Notifier Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/authntf
+Restart=on-failure
+User=root
+
+[Install]
+WantedBy=multi-user.target
