@@ -33,7 +33,7 @@ void daemonize() {
     close(STDERR_FILENO);
 }
 
-void processLog(const char *line) {
+void processLine(const char *line) {
     if (line[0] == '\0') return;
 
     if (!(strstr(line, "sshd") && strstr(line, "Accepted"))) return;
@@ -50,7 +50,7 @@ void processLog(const char *line) {
     lastSessionDate = session.date;
 }
 
-void readAuthLog() {
+void readAuthLogFile() {
     FILE *file = fopen(config.authLogFile, "r");
 
     if (file == NULL) exit(EXIT_FAILURE);
@@ -58,7 +58,7 @@ void readAuthLog() {
     char line[1024];
 
     while (fgets(line, sizeof(line), file) != NULL) {
-        processLog(line);
+        processLine(line);
     }
 
     fclose(file);
@@ -78,7 +78,7 @@ int main() {
     if (!confLoaded) exit(EXIT_FAILURE);
 
     while (1) {
-        readAuthLog();
+        readAuthLogFile();
 
         sleep(60);
     }
